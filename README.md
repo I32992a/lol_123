@@ -1,4 +1,19 @@
-[backend.js](https://github.com/user-attachments/files/22649401/backend.js)
+[package.json](https://github.com/user-attachments/files/22649512/package.json)
+{
+  "name": "chatbot-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "cors": "^2.8.5"
+  }
+}
+[backend.js](https://github.com/user-attachments/files/22649514/backend.js)
 import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
@@ -26,14 +41,16 @@ app.post("/api/generate", async (req, res) => {
     const data = await response.json();
     res.json(data);
   } catch (err) {
-    res.status(500).json({ error: err.message });[package.json](https://github.com/user-attachments/files/22649402/package.json)
-{
-  "name": "chatbot-backend",
-  "version": "1.0.0",
-  "main": "server.js",
-  "type": "module",
-  "scripts": {
-    "start": "node server.js"[index.html](https://github.com/user-attachments/files/22649434/index.html)
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Serve static frontend
+app.use(express.static("public"));
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+[index.html](https://github.com/user-attachments/files/22649516/index.html)
 <!doctype html>
 <html>
 <head>
@@ -87,20 +104,3 @@ app.post("/api/generate", async (req, res) => {
   </script>
 </body>
 </html>
-
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "node-fetch": "^3.3.2",
-    "cors": "^2.8.5"
-  }
-}
-
-  }
-});
-
-// Serve static frontend
-app.use(express.static("public"));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
